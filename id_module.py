@@ -382,13 +382,22 @@ def read_data(file_path):
     y_data=data['abnormal'].values
     return x_data, y_data
 
+def read_from_all_csv(file_path):
+    data = pd.read_csv(file_path)
+    x_data= data.iloc[:,:-1].values
+    y_data= data.iloc[:,-1].values
+    return x_data, y_data 
+
 def get_id_f1score():
     # read data
-    file_path='/home/dpnm/tmp/ni_id_data'
-    x_data, y_data = read_data(file_path)
+    #file_path='/home/dpnm/tmp/ni_id_data'
+    #x_data, y_data = read_data(file_path)
     #x_data=x_data[:x_data.shape[0]]
     #y_data=y_data[:y_data.shape[0]]
     result=""
+    file_path='id_all_data.csv'
+    x_data, y_data = read_from_all_csv(file_path)
+    print (x_data.shape, y_data.shape)
     result_dict={}
     load_path = './cjlee/AT-7.pth'
     stat_path = './cjlee/tpi_train.csv.stat'
@@ -427,7 +436,7 @@ def get_id_f1score():
     for epoch in range(40):
         optimizer.zero_grad()
         output = model(train_x)
-        loss = loss_fn(output, torch.tensor(train_y).to(device))
+        loss = loss_fn(output, torch.tensor(train_y).long().to(device))
         #loss = loss_fn(output, train_y)
         loss.backward()
         optimizer.step()
@@ -450,8 +459,8 @@ def get_id_f1score():
     result_dict['trained_precision'] = str(precision_score(test_y, output))
     result_dict['trained_recall'] = str(recall_score(test_y, output))
     data_test=np.c_[data_test,output]
-    np.savetxt('/home/dpnm/data/id_data_train.csv',data_train,delimiter=',')
-    np.savetxt('/home/dpnm/data/id_data_test.csv',data_test,delimiter=',')
+    #np.savetxt('/home/dpnm/data/id_data_train.csv',data_train,delimiter=',')
+    #np.savetxt('/home/dpnm/data/id_data_test.csv',data_test,delimiter=',')
     return result_dict
 
 def train_model():
