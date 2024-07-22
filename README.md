@@ -1,11 +1,11 @@
-# ni-anomaly-detection-module
+# ni-attack-and-intrusion-detection-module
 ni-attack-and-intrusion-detection-module detects network attack in the traffic by monitoring VNFs' system resource metrics running from the OpenStack testbed using deep learning trained models. 
 This module was made based on the cjlee's model, https://github.com/RimDan/ni-anomaly-detection-public
 
 ## Main Responsibilities
 Supervised Learning-based VNF anomaly detection module.
-- Provide APIs to detect attack in traffic in real-time
-- Provide APIs to show VNFs' basic information consist of SFC
+- Provide APIs to detect attacks in traffic in real time
+- Provide APIs to show VNFs' basic information consisting of SFC
 - Provide APIs to show VNFs' system resource usage in real-time
 
 ## Requirements
@@ -22,7 +22,7 @@ pip3.8 install -r requirements.txt
 ```
 
 ## Configuration
-This module runs as web server to handle requests that detects abnormal status of VNFs that configures specific service (web service). The SFC consists of 5 VNFs: firewall, flow monitor, DPI (Deep Packet Inspection), IDS (Intrusion Detection System), load balancer.
+This module runs as a web server to handle requests that detect abnormal status of VNFs that configure specific services (web service). The SFC consists of 5 VNFs: firewall, flow monitor, DPI (Deep Packet Inspection), IDS (Intrusion Detection System), and load balancer.
 
 To use a web UI of this module or send an SFC request to the module, a port number can be configured (a default port number is 8005)
 
@@ -64,10 +64,10 @@ This module provides web UI based on Swagger:
 http://<host IP running this module>:<port number>/ui/
 ```
 
-To detect the VNFs' real-time status in OpenStack testbed, this module processes a HTTP GET message including in its body.
-You can generate an request by using web UI or using other library creating HTTP messages.
+To detect the VNFs' real-time status in the OpenStack testbed, this module processes an HTTP GET message including in its body.
+You can generate a request by using web UI or using other libraries to create HTTP messages.
 
-Required data to create HTTP request is VNF instances' prefix.
+The required data to create an HTTP request is VNF instances' prefixes.
 (We assume that the prefix of the VNF instances' name that consists of the SFC is the same.)
 
 - **prefix**: a prefix to identify instances which can be components of an SFC from OpenStack
